@@ -1,5 +1,7 @@
 package com.example.appgeradorqrcodekotlin
 
+import android.graphics.Bitmap
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -45,6 +47,17 @@ class MainActivity : AppCompatActivity() {
 
         try {
             val bitMatrix=qrCode.encode(conteudoQRCode, BarcodeFormat.QR_CODE, 196,196)
+
+            val tamanho=bitMatrix.width
+            val altura =bitMatrix.height
+
+            val bitmap = Bitmap.createBitmap(tamanho, altura, Bitmap.Config.RGB_565)
+            for (i in 0 until tamanho){
+                for (j in 0 until altura){
+                    bitmap.setPixel(i,j,if (bitMatrix[i,j])Color.BLACK else Color.WHITE)
+
+                }}
+            img_main_qrcode!!.setImageBitmap(bitmap)
 
         }catch (e: WriterException){}
 
